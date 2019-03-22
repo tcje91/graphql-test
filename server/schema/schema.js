@@ -6,7 +6,8 @@ const {
   GraphQLString,
   GraphQLInt,
   GraphQLSchema,
-  GraphQLID
+  GraphQLID,
+  GraphQLList
 } = graphql;
 
 //dummy data
@@ -31,6 +32,27 @@ const films = [
     genre: "Comedy",
     year: 1998,
     director_id: "3"
+  },
+  {
+    film_id: "4",
+    title: "Alien",
+    genre: "Horror",
+    year: 1979,
+    director_id: "2"
+  },
+  {
+    film_id: "5",
+    title: "Gladiator",
+    genre: "Drama",
+    year: 2000,
+    director_id: "2"
+  },
+  {
+    film_id: "6",
+    title: "Sin City",
+    genre: "Thriller",
+    year: 2005,
+    director_id: "1"
   }
 ];
 
@@ -50,7 +72,7 @@ const FilmType = new GraphQLObjectType({
     director: {
       type: DirectorType,
       resolve(parent, args) {
-        return _.find(directors, { director_id: parent.director_id })
+        return _.find(directors, { director_id: parent.director_id });
       }
     }
   })
@@ -61,7 +83,13 @@ const DirectorType = new GraphQLObjectType({
   fields: () => ({
     director_id: { type: GraphQLID },
     name: { type: GraphQLString },
-    age: { type: GraphQLInt }
+    age: { type: GraphQLInt },
+    films: {
+      type: new GraphQLList(FilmType),
+      resolve(parent, args) {
+        return _.filter(films, { director_id: parent.director_id });
+      }
+    }
   })
 });
 
@@ -81,6 +109,18 @@ const RootQuery = new GraphQLObjectType({
       args: { director_id: { type: GraphQLID } },
       resolve(parent, args) {
         return _.find(directors, { director_id: args.director_id });
+      }
+    },
+    films: {
+      type: new GraphQLList(FilmType),
+      resolve(parent, args) {
+        return films;
+      }
+    },
+    directors: {
+      type: new GraphQLList(DirectorType),
+      resolve(parent, args) {
+        return directors;
       }
     }
   }
