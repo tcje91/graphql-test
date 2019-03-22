@@ -12,58 +12,6 @@ const {
   GraphQLList
 } = graphql;
 
-//dummy data
-// const films = [
-//   {
-//     film_id: "1",
-//     title: "Alita: Battle Angel",
-//     genre: "Sci-Fi",
-//     year: 2019,
-//     director_id: "1"
-//   },
-//   {
-//     film_id: "2",
-//     title: "Blade Runner",
-//     genre: "Sci-Fi",
-//     year: 1982,
-//     director_id: "2"
-//   },
-//   {
-//     film_id: "3",
-//     title: "The Big Lebowski",
-//     genre: "Comedy",
-//     year: 1998,
-//     director_id: "3"
-//   },
-//   {
-//     film_id: "4",
-//     title: "Alien",
-//     genre: "Horror",
-//     year: 1979,
-//     director_id: "2"
-//   },
-//   {
-//     film_id: "5",
-//     title: "Gladiator",
-//     genre: "Drama",
-//     year: 2000,
-//     director_id: "2"
-//   },
-//   {
-//     film_id: "6",
-//     title: "Sin City",
-//     genre: "Thriller",
-//     year: 2005,
-//     director_id: "1"
-//   }
-// ];
-
-// const directors = [
-//   { director_id: "1", name: "Robert Rodriguez", age: 50 },
-//   { director_id: "2", name: "Ridley Scott", age: 81 },
-//   { director_id: "3", name: "Ethan Cohen", age: 61 }
-// ];
-
 const FilmType = new GraphQLObjectType({
   name: "Film",
   fields: () => ({
@@ -127,6 +75,45 @@ const RootQuery = new GraphQLObjectType({
   }
 });
 
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    addDirector: {
+      type: DirectorType,
+      args:{
+        name: { type: GraphQLString },
+        age: { type: GraphQLInt }
+      },
+      resolve(parent, args) {
+        let director = new Director({
+          name: args.name,
+          age: args.age
+        })
+        return director.save()
+      }
+    },
+    addFilm: {
+      type: FilmType,
+      args: {
+        title: { type: GraphQLString },
+        genre: { type: GraphQLString },
+        year: { type: GraphQLInt },
+        director_id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        let film = new Film({
+          title: args.title,
+          genre: args.genre,
+          year: args.year,
+          director_id: args.director_id
+        })
+        return film.save();
+      }
+    }
+  }
+})
+
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation: Mutation
 });
