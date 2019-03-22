@@ -1,5 +1,7 @@
 const graphql = require("graphql");
 const _ = require("lodash");
+const Film = require("../models/film");
+const Director = require("../models/director");
 
 const {
   GraphQLObjectType,
@@ -11,56 +13,56 @@ const {
 } = graphql;
 
 //dummy data
-const films = [
-  {
-    film_id: "1",
-    title: "Alita: Battle Angel",
-    genre: "Sci-Fi",
-    year: 2019,
-    director_id: "1"
-  },
-  {
-    film_id: "2",
-    title: "Blade Runner",
-    genre: "Sci-Fi",
-    year: 1982,
-    director_id: "2"
-  },
-  {
-    film_id: "3",
-    title: "The Big Lebowski",
-    genre: "Comedy",
-    year: 1998,
-    director_id: "3"
-  },
-  {
-    film_id: "4",
-    title: "Alien",
-    genre: "Horror",
-    year: 1979,
-    director_id: "2"
-  },
-  {
-    film_id: "5",
-    title: "Gladiator",
-    genre: "Drama",
-    year: 2000,
-    director_id: "2"
-  },
-  {
-    film_id: "6",
-    title: "Sin City",
-    genre: "Thriller",
-    year: 2005,
-    director_id: "1"
-  }
-];
+// const films = [
+//   {
+//     film_id: "1",
+//     title: "Alita: Battle Angel",
+//     genre: "Sci-Fi",
+//     year: 2019,
+//     director_id: "1"
+//   },
+//   {
+//     film_id: "2",
+//     title: "Blade Runner",
+//     genre: "Sci-Fi",
+//     year: 1982,
+//     director_id: "2"
+//   },
+//   {
+//     film_id: "3",
+//     title: "The Big Lebowski",
+//     genre: "Comedy",
+//     year: 1998,
+//     director_id: "3"
+//   },
+//   {
+//     film_id: "4",
+//     title: "Alien",
+//     genre: "Horror",
+//     year: 1979,
+//     director_id: "2"
+//   },
+//   {
+//     film_id: "5",
+//     title: "Gladiator",
+//     genre: "Drama",
+//     year: 2000,
+//     director_id: "2"
+//   },
+//   {
+//     film_id: "6",
+//     title: "Sin City",
+//     genre: "Thriller",
+//     year: 2005,
+//     director_id: "1"
+//   }
+// ];
 
-const directors = [
-  { director_id: "1", name: "Robert Rodriguez", age: 50 },
-  { director_id: "2", name: "Ridley Scott", age: 81 },
-  { director_id: "3", name: "Ethan Cohen", age: 61 }
-];
+// const directors = [
+//   { director_id: "1", name: "Robert Rodriguez", age: 50 },
+//   { director_id: "2", name: "Ridley Scott", age: 81 },
+//   { director_id: "3", name: "Ethan Cohen", age: 61 }
+// ];
 
 const FilmType = new GraphQLObjectType({
   name: "Film",
@@ -72,7 +74,7 @@ const FilmType = new GraphQLObjectType({
     director: {
       type: DirectorType,
       resolve(parent, args) {
-        return _.find(directors, { director_id: parent.director_id });
+        // return _.find(directors, { director_id: parent.director_id });
       }
     }
   })
@@ -87,7 +89,7 @@ const DirectorType = new GraphQLObjectType({
     films: {
       type: new GraphQLList(FilmType),
       resolve(parent, args) {
-        return _.filter(films, { director_id: parent.director_id });
+        // return _.filter(films, { director_id: parent.director_id });
       }
     }
   })
@@ -100,15 +102,14 @@ const RootQuery = new GraphQLObjectType({
       type: FilmType,
       args: { film_id: { type: GraphQLID } },
       resolve(parent, args) {
-        //code to fetch book from db
-        return _.find(films, { film_id: args.film_id });
+        // return _.find(films, { film_id: args.film_id });
       }
     },
     director: {
       type: DirectorType,
       args: { director_id: { type: GraphQLID } },
       resolve(parent, args) {
-        return _.find(directors, { director_id: args.director_id });
+        // return _.find(directors, { director_id: args.director_id });
       }
     },
     films: {
