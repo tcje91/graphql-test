@@ -15,14 +15,14 @@ const {
 const FilmType = new GraphQLObjectType({
   name: "Film",
   fields: () => ({
-    film_id: { type: GraphQLID },
+    id: { type: GraphQLID },
     title: { type: GraphQLString },
     genre: { type: GraphQLString },
     year: { type: GraphQLInt },
     director: {
       type: DirectorType,
       resolve(parent, args) {
-        // return _.find(directors, { director_id: parent.director_id });
+        return Director.findById(parent.director_id);
       }
     }
   })
@@ -31,13 +31,14 @@ const FilmType = new GraphQLObjectType({
 const DirectorType = new GraphQLObjectType({
   name: "Director",
   fields: () => ({
-    director_id: { type: GraphQLID },
+    id: { type: GraphQLID },
     name: { type: GraphQLString },
     age: { type: GraphQLInt },
     films: {
       type: new GraphQLList(FilmType),
       resolve(parent, args) {
-        // return _.filter(films, { director_id: parent.director_id });
+        console.log(parent);
+        return Film.find({ director_id: parent.id });
       }
     }
   })
@@ -50,26 +51,26 @@ const RootQuery = new GraphQLObjectType({
       type: FilmType,
       args: { film_id: { type: GraphQLID } },
       resolve(parent, args) {
-        // return _.find(films, { film_id: args.film_id });
+        return Film.findById(args.film_id);
       }
     },
     director: {
       type: DirectorType,
       args: { director_id: { type: GraphQLID } },
       resolve(parent, args) {
-        // return _.find(directors, { director_id: args.director_id });
+        return Director.findById(args.director_id);
       }
     },
     films: {
       type: new GraphQLList(FilmType),
       resolve(parent, args) {
-        return films;
+        return Film.find({});
       }
     },
     directors: {
       type: new GraphQLList(DirectorType),
       resolve(parent, args) {
-        return directors;
+        return Director.find({});
       }
     }
   }
