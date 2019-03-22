@@ -9,7 +9,8 @@ const {
   GraphQLInt,
   GraphQLSchema,
   GraphQLID,
-  GraphQLList
+  GraphQLList,
+  GraphQLNonNull
 } = graphql;
 
 const FilmType = new GraphQLObjectType({
@@ -37,7 +38,6 @@ const DirectorType = new GraphQLObjectType({
     films: {
       type: new GraphQLList(FilmType),
       resolve(parent, args) {
-        console.log(parent);
         return Film.find({ director_id: parent.id });
       }
     }
@@ -82,8 +82,8 @@ const Mutation = new GraphQLObjectType({
     addDirector: {
       type: DirectorType,
       args:{
-        name: { type: GraphQLString },
-        age: { type: GraphQLInt }
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        age: { type: new GraphQLNonNull(GraphQLInt) }
       },
       resolve(parent, args) {
         let director = new Director({
@@ -96,10 +96,10 @@ const Mutation = new GraphQLObjectType({
     addFilm: {
       type: FilmType,
       args: {
-        title: { type: GraphQLString },
-        genre: { type: GraphQLString },
-        year: { type: GraphQLInt },
-        director_id: { type: GraphQLID }
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        genre: { type: new GraphQLNonNull(GraphQLString) },
+        year: { type: new GraphQLNonNull(GraphQLInt) },
+        director_id: { type: new GraphQLNonNull(GraphQLID) }
       },
       resolve(parent, args) {
         let film = new Film({
