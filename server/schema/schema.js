@@ -11,9 +11,27 @@ const {
 
 //dummy data
 const films = [
-  { film_id: "1", title: "Alita: Battle Angel", genre: "Sci-Fi", year: 2019 },
-  { film_id: "2", title: "Blade Runner", genre: "Sci-Fi", year: 1982 },
-  { film_id: "3", title: "The Big Lebowski", genre: "Comedy", year: 1998 }
+  {
+    film_id: "1",
+    title: "Alita: Battle Angel",
+    genre: "Sci-Fi",
+    year: 2019,
+    director_id: "1"
+  },
+  {
+    film_id: "2",
+    title: "Blade Runner",
+    genre: "Sci-Fi",
+    year: 1982,
+    director_id: "2"
+  },
+  {
+    film_id: "3",
+    title: "The Big Lebowski",
+    genre: "Comedy",
+    year: 1998,
+    director_id: "3"
+  }
 ];
 
 const directors = [
@@ -28,7 +46,13 @@ const FilmType = new GraphQLObjectType({
     film_id: { type: GraphQLID },
     title: { type: GraphQLString },
     genre: { type: GraphQLString },
-    year: { type: GraphQLInt }
+    year: { type: GraphQLInt },
+    director: {
+      type: DirectorType,
+      resolve(parent, args) {
+        return _.find(directors, { director_id: parent.director_id })
+      }
+    }
   })
 });
 
