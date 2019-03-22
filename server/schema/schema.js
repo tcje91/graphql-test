@@ -1,6 +1,14 @@
 const graphql = require("graphql");
+const _ = require("lodash");
 
 const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema } = graphql;
+
+//dummy data
+const films = [
+  { film_id: "1", title: "Alita: Battle Angel", genre: "Sci-Fi", year: 2019 },
+  { film_id: "2", title: "Blade Runner", genre: "Sci-Fi", year: 1982 },
+  { film_id: "3", title: "The Big Lebowski", genre: "Comedy", year: 1998 }
+];
 
 const FilmType = new GraphQLObjectType({
   name: "Film",
@@ -17,9 +25,10 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     film: {
       type: FilmType,
-      args: { id: { type: GraphQLString } },
+      args: { film_id: { type: GraphQLString } },
       resolve(parent, args) {
         //code to fetch book from db
+        return _.find(films, { film_id: args.film_id });
       }
     }
   }
