@@ -7,18 +7,30 @@ const getFilmsQuery = gql`
     films {
       title
       year
+      id
     }
   }
 `;
 
 class FilmList extends Component {
+  renderFilms() {
+    const { data } = this.props;
+    return data.loading ? (
+      <div>Loading...</div>
+    ) : (
+      data.films.map(film => (
+        <li key={film.id}>
+          {film.title} - {film.year}
+        </li>
+      ))
+    );
+  }
+
   render() {
-    console.log(this.props)
     return (
       <div>
         <ul>
-          <li>Film 1</li>
-          <li>Film 2</li>
+          {this.renderFilms()}
         </ul>
       </div>
     );
