@@ -3,18 +3,20 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 
 import FilmList from "./components/FilmList";
+import FilmAdder from "./components/FilmAdder";
 
 const client = new ApolloClient({
   uri: "http://localhost:9090/graphql"
 });
 
 class App extends Component {
-  render() {
+    render() {
     return (
       <ApolloProvider client={client}>
         <div className="App">
           <h1>Film List</h1>
           <FilmList />
+          <FilmAdder />
         </div>
       </ApolloProvider>
     );
