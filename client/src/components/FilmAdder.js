@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { graphql } from "react-apollo";
-import { getDirectorsQuery } from "../queries/queries";
+import { graphql, compose } from "react-apollo";
+import { getDirectorsQuery, addFilmMutation } from "../queries/queries";
 
 class FilmAdder extends Component {
   state = {
@@ -21,7 +21,7 @@ class FilmAdder extends Component {
   }
 
   displayDirectors() {
-    const { data } = this.props;
+    const data = this.props.getDirectorsQuery;
     return data.loading ? (
       <option disabled>Loading directors...</option>
     ) : (
@@ -67,4 +67,7 @@ class FilmAdder extends Component {
   }
 }
 
-export default graphql(getDirectorsQuery)(FilmAdder);
+export default compose(
+  graphql(getDirectorsQuery, { name: "getDirectorsQuery" }),
+  graphql(addFilmMutation, { name: "addFilmMutation" })
+)(FilmAdder);

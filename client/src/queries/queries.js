@@ -19,4 +19,13 @@ const getDirectorsQuery = gql`
   }
 `;
 
-export { getFilmsQuery, getDirectorsQuery };
+const addFilmMutation  = gql`
+  mutation {
+    addFilm(title: "", year:"", genre: "", director_id: ""){
+      title
+      id
+    }
+  }
+`
+
+export { getFilmsQuery, getDirectorsQuery, addFilmMutation };
