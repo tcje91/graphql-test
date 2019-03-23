@@ -16,6 +16,7 @@ const getFilmQuery = gql`
       id
       title
       genre
+      year
       director{
         id
         name

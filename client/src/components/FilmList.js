@@ -4,13 +4,17 @@ import { getFilmsQuery } from "../queries/queries"
 import FilmDetails from "./FilmDetails";
 
 class FilmList extends Component {
+  state = {
+    selectedFilm: null
+  }
+
   renderFilms() {
     const { data } = this.props;
     return data.loading ? (
       <div>Loading...</div>
     ) : (
       data.films.map(film => (
-        <li key={film.id}>
+        <li key={film.id} onClick={ e => this.setState({ selectedFilm: film.id })}>
           {film.title} - {film.year}
         </li>
       ))
@@ -18,12 +22,13 @@ class FilmList extends Component {
   }
 
   render() {
+    const { selectedFilm } = this.state;
     return (
       <div>
         <ul>
           {this.renderFilms()}
         </ul>
-        <FilmDetails />
+        <FilmDetails film_id={selectedFilm} />
       </div>
     );
   }
