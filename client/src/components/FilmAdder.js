@@ -17,7 +17,15 @@ class FilmAdder extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state)
+    const { title, year, genre, director_id } = this.state;
+    this.props.addFilmMutation({
+      variables: {
+        title,
+        year: Number(year),
+        genre,
+        director_id
+      }
+    })
   }
 
   displayDirectors() {
