@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { graphql, compose } from "react-apollo";
-import { getDirectorsQuery, addFilmMutation } from "../queries/queries";
+import { getDirectorsQuery, addFilmMutation, getFilmsQuery } from "../queries/queries";
 
 class FilmAdder extends Component {
   state = {
@@ -24,7 +24,8 @@ class FilmAdder extends Component {
         year: Number(year),
         genre,
         director_id
-      }
+      },
+      refetchQueries: [{ query: getFilmsQuery }]
     })
   }
 
