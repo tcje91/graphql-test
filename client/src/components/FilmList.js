@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { getFilmsQuery } from "../queries/queries"
+import FilmDetails from "./FilmDetails";
 
 class FilmList extends Component {
   renderFilms() {
@@ -22,6 +23,7 @@ class FilmList extends Component {
         <ul>
           {this.renderFilms()}
         </ul>
+        <FilmDetails />
       </div>
     );
   }
