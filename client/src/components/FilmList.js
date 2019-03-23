@@ -1,16 +1,6 @@
 import React, { Component } from "react";
-import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
-
-const getFilmsQuery = gql`
-  {
-    films {
-      title
-      year
-      id
-    }
-  }
-`;
+import { getFilmsQuery } from "../queries/queries"
 
 class FilmList extends Component {
   renderFilms() {

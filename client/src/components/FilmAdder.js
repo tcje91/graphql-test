@@ -1,15 +1,6 @@
 import React, { Component } from "react";
-import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
-
-const getDirectorsQuery = gql`
-  {
-    directors {
-      name
-      id
-    }
-  }
-`;
+import { getDirectorsQuery } from "../queries/queries";
 
 class FilmAdder extends Component {
   displayDirectors() {
