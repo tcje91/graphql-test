@@ -11,17 +11,17 @@ const getFilmsQuery = gql`
 `;
 
 const getFilmQuery = gql`
-  query($film_id: ID){
-    film(film_id: $film_id){
+  query($film_id: ID) {
+    film(film_id: $film_id) {
       id
       title
       genre
       year
-      director{
+      director {
         id
         name
         age
-        films{
+        films {
           id
           title
           year
@@ -41,12 +41,7 @@ const getDirectorsQuery = gql`
 `;
 
 const addFilmMutation = gql`
-  mutation(
-    $title: String!
-    $year: Int!
-    $genre: String!
-    $director_id: ID!
-  ) {
+  mutation($title: String!, $year: Int!, $genre: String!, $director_id: ID!) {
     addFilm(
       title: $title
       year: $year

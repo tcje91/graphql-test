@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
-import { getFilmsQuery } from "../queries/queries"
+import { getFilmsQuery } from "../queries/queries";
 import FilmDetails from "./FilmDetails";
 
 class FilmList extends Component {
   state = {
     selectedFilm: null
-  }
+  };
 
   renderFilms() {
     const { data } = this.props;
@@ -14,7 +14,10 @@ class FilmList extends Component {
       <div>Loading...</div>
     ) : (
       data.films.map(film => (
-        <li key={film.id} onClick={ e => this.setState({ selectedFilm: film.id })}>
+        <li
+          key={film.id}
+          onClick={e => this.setState({ selectedFilm: film.id })}
+        >
           {film.title} - {film.year}
         </li>
       ))
@@ -25,9 +28,7 @@ class FilmList extends Component {
     const { selectedFilm } = this.state;
     return (
       <div>
-        <ul>
-          {this.renderFilms()}
-        </ul>
+        <ul>{this.renderFilms()}</ul>
         <FilmDetails film_id={selectedFilm} />
       </div>
     );

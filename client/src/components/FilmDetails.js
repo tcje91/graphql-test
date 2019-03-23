@@ -8,15 +8,19 @@ class FilmDetails extends Component {
     return film ? (
       <div>
         <h2>{film.title}</h2>
-        <p>{film.genre}, released {film.year}</p>
+        <p>
+          {film.genre}, released {film.year}
+        </p>
         <p>Directed by {film.director.name}</p>
         <p>Other films by this director:</p>
         <ul className="other-books">
-        {
-          film.director.films.map(film => {
-            return <li key={film.id}>{film.title} - {film.year}</li>
-          })
-        }
+          {film.director.films.map(film => {
+            return (
+              <li key={film.id}>
+                {film.title} - {film.year}
+              </li>
+            );
+          })}
         </ul>
       </div>
     ) : (
@@ -25,12 +29,7 @@ class FilmDetails extends Component {
   }
 
   render() {
-    console.log(this.props);
-    return (
-      <div id="film-details">
-        {this.displayFilmDetails()}
-      </div>
-    );
+    return <div id="film-details">{this.displayFilmDetails()}</div>;
   }
 }
 
