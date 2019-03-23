@@ -10,6 +10,26 @@ const getFilmsQuery = gql`
   }
 `;
 
+const getFilmQuery = gql`
+  query($film_id: ID){
+    film(film_id: $film_id){
+      id
+      title
+      genre
+      director{
+        id
+        name
+        age
+        films{
+          id
+          title
+          year
+        }
+      }
+    }
+  }
+`;
+
 const getDirectorsQuery = gql`
   {
     directors {
@@ -38,4 +58,4 @@ const addFilmMutation = gql`
   }
 `;
 
-export { getFilmsQuery, getDirectorsQuery, addFilmMutation };
+export { getFilmsQuery, getFilmQuery, getDirectorsQuery, addFilmMutation };
