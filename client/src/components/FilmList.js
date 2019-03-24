@@ -18,7 +18,7 @@ class FilmList extends Component {
           key={film.id}
           onClick={e => this.setState({ selectedFilm: film.id })}
         >
-          {film.title} - {film.year}
+          {film.title}
         </li>
       ))
     );
@@ -28,7 +28,7 @@ class FilmList extends Component {
     const { selectedFilm } = this.state;
     return (
       <div>
-        <ul>{this.renderFilms()}</ul>
+        <ul id="film-list">{this.renderFilms()}</ul>
         <FilmDetails film_id={selectedFilm} />
       </div>
     );

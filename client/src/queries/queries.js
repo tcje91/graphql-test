@@ -4,7 +4,6 @@ const getFilmsQuery = gql`
   {
     films {
       title
-      year
       id
     }
   }
