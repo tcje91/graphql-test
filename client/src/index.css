@@ -28,6 +28,13 @@ body {
   border: 1px solid black;
   background-color: #fff;
   cursor: pointer;
+  transition: 100ms;
+}
+
+#film-list li:hover {
+  color: #fff;
+  background-color: rgb(21, 153, 135);
+  transition: 100ms;
 }
 
 form {
@@ -63,13 +70,19 @@ form button {
   cursor: pointer;
   color: #fff;
   font-size: 2em;
-  background: grey;
+  background: rgb(170, 170, 170);
   border: 0;
   padding: 0 10px;
   border-radius: 50%;
   position: absolute;
   bottom: 10px;
   left: 10px;
+  transition: 200ms;
+}
+
+form button:hover {
+  background: rgb(21, 153, 135);
+  transition: 200ms;
 }
 
 #film-details {
