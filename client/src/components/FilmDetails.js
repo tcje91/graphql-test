@@ -14,12 +14,16 @@ class FilmDetails extends Component {
         <p>Directed by {film.director.name}</p>
         <p>Other films by this director:</p>
         <ul className="other-books">
-          {film.director.films.map(film => {
-            return (
-              <li key={film.id}>
-                {film.title} - {film.year}
-              </li>
-            );
+          {film.director.films.map(otherFilm => {
+            if (film.id !== otherFilm.id) {
+              return (
+                <li key={otherFilm.id}>
+                  {otherFilm.title} - {otherFilm.year}
+                </li>
+              );
+            } else {
+              return null;
+            }
           })}
         </ul>
       </div>
