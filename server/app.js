@@ -1,26 +1,26 @@
-const app = require("express")();
-const graphqlHTTP = require("express-graphql");
-const schema = require("./schema/schema");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const { username, password } = require("./config");
+const app = require('express')();
+const graphqlHTTP = require('express-graphql');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const schema = require('./schema/schema');
+const { username, password } = require('./config');
 
 app.use(cors());
 
 mongoose.connect(
   `mongodb+srv://${username}:${password}@graphql-test-filmdb-y3sp1.mongodb.net/test?retryWrites=true`,
-  { useNewUrlParser: true }
+  { useNewUrlParser: true },
 );
-mongoose.connection.once("open", () => {
-  console.log("connected to database");
+mongoose.connection.once('open', () => {
+  console.log('connected to database');
 });
 
 app.use(
-  "/graphql",
+  '/graphql',
   graphqlHTTP({
     schema,
-    graphiql: true
-  })
+    graphiql: true,
+  }),
 );
 
 module.exports = app;

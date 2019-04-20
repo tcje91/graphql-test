@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -L listen.js"
+    "start": "node listen.js",
+    "dev": "nodemon -L listen.js"
   },
   "keywords": [],
   "author": "",
@@ -18,5 +19,10 @@
     "lodash": "^4.17.11",
     "mongoose": "^5.4.19",
     "nodemon": "^1.18.10"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
   }
 }
