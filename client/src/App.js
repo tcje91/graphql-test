@@ -6,7 +6,7 @@ import FilmList from "./components/FilmList";
 import FilmAdder from "./components/FilmAdder";
 
 const client = new ApolloClient({
-  uri: "http://localhost:9090/graphql"
+  uri: "https://graphql-film-app.herokuapp.com/graphql"
 });
 
 class App extends Component {
